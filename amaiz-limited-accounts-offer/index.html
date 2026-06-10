@@ -785,6 +785,86 @@
       text-align: center;
     }
 
+
+    .availability.compact-offer {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 22px 24px;
+      align-items: center;
+      padding: 28px 32px;
+      border-radius: 28px;
+      background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+      box-shadow: var(--shadow-soft);
+      border: 1px solid #d8e6ff;
+    }
+
+    .compact-offer-copy {
+      display: grid;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .offer-kicker {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #eef5ff;
+      color: var(--amaiz-blue);
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+    }
+
+    .offer-line {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 10px;
+      line-height: 1;
+    }
+
+    .offer-number {
+      font-size: clamp(44px, 7vw, 72px);
+      font-weight: 900;
+      letter-spacing: -0.07em;
+      color: var(--amaiz-blue);
+      line-height: 0.95;
+    }
+
+    .offer-of,
+    .offer-suffix {
+      font-size: clamp(24px, 3vw, 34px);
+      font-weight: 850;
+      letter-spacing: -0.04em;
+      color: var(--ink);
+      line-height: 1;
+    }
+
+    .compact-offer-copy p {
+      margin: 0;
+      color: #2d3b4f;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .compact-offer .btn {
+      justify-self: end;
+      white-space: nowrap;
+      min-width: 240px;
+    }
+
+    .compact-offer .availability-note {
+      grid-column: 1 / -1;
+      margin: -2px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
     .mobile-only { display: none; }
 
     @media (max-width: 980px) {
@@ -815,6 +895,23 @@
       .cta-panel { padding: 28px 20px; border-radius: 24px; }
       h1 { font-size: 46px; }
       .hero-actions .btn { width: 100%; }
+      .availability.compact-offer {
+        grid-template-columns: 1fr;
+        padding: 24px 20px;
+      }
+      .offer-line {
+        gap: 8px;
+      }
+      .offer-number,
+      .offer-of,
+      .offer-suffix {
+        line-height: 1.05;
+      }
+      .compact-offer .btn {
+        justify-self: stretch;
+        width: 100%;
+        min-width: 0;
+      }
       .trustpilot-badge { width: 100%; justify-content: center; }
       .mobile-only { display: inline; }
     }
@@ -910,23 +1007,22 @@
 
           </aside>
         </div>
-
-        <section class="availability" aria-label="Limited offer">
-          <div class="allocation-heading">
-            <span>Limited offer</span>
-          </div>
-          <div class="allocation-original">
-            <span>Total limited offer</span>
-            <strong>300 accounts</strong>
-          </div>
-          <div class="allocation-left">
-            <span>Still available</span>
-            <strong><span id="accounts-left" class="counter-number">160</span>/300 accounts left</strong>
-            <div class="progress-wrap" aria-hidden="true"><div class="progress-bar"></div></div>
+        
+        <section class="availability compact-offer" aria-label="Limited offer availability">
+          <div class="compact-offer-copy">
+            <span class="offer-kicker">Limited offer</span>
+            <div class="offer-line">
+              <strong class="offer-number">160</strong>
+              <span class="offer-of">of 300</span>
+              <span class="offer-suffix">accounts left</span>
+            </div>
+            <p>Hurry up and claim your offer.</p>
           </div>
           <a class="btn btn-primary" href="https://v3.amaiz.com/sign-up">Claim your offer</a>
-          <p class="availability-note">Hurry up and claim your offer. Final access is subject to eligibility, verification and approval.</p>
+          <p class="availability-note">Final access is subject to eligibility, verification and approval.</p>
         </section>
+
+
 
         <div class="value-strip" aria-label="Offer highlights">
           <div class="strip-item"><span class="check-icon">✓</span><strong>No monthly subscription</strong></div>
@@ -1057,7 +1153,7 @@
           </div>
           <div class="cta-counter">
             <div class="old">300 accounts</div>
-            <div class="new">160/300 accounts left</div>
+            <div class="new">160 of 300 accounts left</div>
             <a class="btn btn-white" href="https://v3.amaiz.com/sign-up">Claim your offer</a>
           </div>
         </div>
@@ -1078,27 +1174,5 @@
       <p>© 2026 Amaiz. All rights reserved. Amaiz Ltd is registered in England and Wales under company number 10977384. Registered office: 20 Little Britain, London, United Kingdom, EC1A 7DH. Amaiz Ltd is an e-money institution under UK Electronic Money Regulations 2011, regulated by the Financial Conduct Authority (No. 900857). Mastercard® is a registered trademark, and the circles design is a trademark of Mastercard International Incorporated. Amaiz is not a bank. We provide e-money accounts for our customers and don’t take risks with their money. Customer funds are not covered by the Financial Services Compensation Scheme (FSCS). Your money is kept in a protected, ring-fenced account, safeguarded under UK Electronic Money Regulations 2011.</p>
     </div>
   </footer>
-
-  <script>
-    (function () {
-      var el = document.getElementById('accounts-left');
-      if (!el) return;
-      var start = 300;
-      var end = 160;
-      var duration = 900;
-      var startTime = null;
-
-      function animateCounter(timestamp) {
-        if (!startTime) startTime = timestamp;
-        var progress = Math.min((timestamp - startTime) / duration, 1);
-        var eased = 1 - Math.pow(1 - progress, 3);
-        var current = Math.round(start - (start - end) * eased);
-        el.textContent = current;
-        if (progress < 1) window.requestAnimationFrame(animateCounter);
-      }
-
-      window.requestAnimationFrame(animateCounter);
-    })();
-  </script>
 </body>
 </html>
